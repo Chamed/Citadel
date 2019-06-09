@@ -34,5 +34,58 @@ export default {
 </script>
 
 <style>
-
+.admin-pages{
+    color: #DCDCDC;
+}
+.tabs{
+    background-color: #464646;
+}
+.nav-tabs .nav-link.active{
+    background-color: #323232;
+    color: #DCDCDC;
+    border: none;
+  
+}
+.nav-tabs .nav-link,
+.nav-tabs .nav-link:hover{
+    color: #DCDCDC;
+    border: none;
+  
+}
+.card-header-tabs{
+    padding: none;
+}
+.tab-pane{
+    background-color: #323232;
+}
+.card-header{
+    padding-bottom: 10px;
+}
+.b-table, p, td, tr{
+    color: #DCDCDC;
+}
+tr:hover{
+    background-color: #464646;
+}
+thead:hover{
+    background-color: #323232;
+}
+.ql-picker-label, .ql-list{
+    color: #DCDCDC !important;
+}
+.page-item.active .page-link{
+    background-color: #479457;
+    border-color: #479457;
+}
+.ql-editor{
+    background-color: #464646;
+    border-bottom: solid 5px #479457;
+}
+.form-control, .form-control:focus, .form-control::placeholder, .custom-select{
+    background-color: #6B6B6B;     
+    color: #dcdcdc !important;
+}
+input, select{
+    color: #dcdcdc !important;
+}
 </style>

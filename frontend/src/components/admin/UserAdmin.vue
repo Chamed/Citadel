@@ -1,10 +1,10 @@
 <template>
   <div class="user-admin">
-    <b-form>
+    <b-form >
       <input id="user-id" type="hidden" v-model="user.id">
       <b-row>
         <b-col md="6" sm="12">
-          <b-form-group label="Nome:" label-for="user-name">
+          <b-form-group class="b-form" label="Nome:" label-for="user-name">
             <b-form-input
               id="user-name"
               type="text"
@@ -59,7 +59,7 @@
           </b-form-group>
         </b-col>
       </b-row>
-      <b-button variant="primary" v-if="mode === 'save'" @click="save">Salvar</b-button>
+      <b-button variant="success" v-if="mode === 'save'" @click="save">Salvar</b-button>
       <b-button variant="danger" v-if="mode === 'remove'" @click="remove">Excluir</b-button>
       <b-button class="ml-2" @click="reset">Cancelar</b-button>
     </b-form>
@@ -146,4 +146,5 @@ export default {
 </script>
 
 <style>
+
 </style>

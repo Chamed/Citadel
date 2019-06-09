@@ -1,14 +1,14 @@
 <template>
     <div class="home">
-        <PageTitle icon="fa fa-home" main="Bem vindo a Citadel"
-            sub="Pagína inicial" />
+        <PageTitle icon="fa fa-university" main="Bem vindo"
+            sub="Com você nossa comunidade é mais forte" />
         <div class="stats">
             <Stat title="Categorias" :value="stat.categories"
-                icon="fa fa-folder" color="#d54d50"/>
+                icon="fa fa-folder" color="#F45B69"/>
             <Stat title="Postagens" :value="stat.posts"
-                icon="fa fa-file" color="#3bc480"/>
+                icon="fa fa-file" color="#84B369"/>
             <Stat title="Usuários" :value="stat.users"
-                icon="fa fa-user" color="#3282cd"/>
+                icon="fa fa-user" color="#028090"/>
         </div>
     </div>
 </template>
@@ -43,5 +43,8 @@ export default {
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
+    }
+    .home{
+        color: #DCDCDC;
     }
 </style>

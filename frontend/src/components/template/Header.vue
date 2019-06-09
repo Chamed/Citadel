@@ -1,17 +1,17 @@
-<template>
+<template >
   <header class="header">
         <a class="toggle" @click="toggleMenu" v-if="!hideToggle">
             <i class="fa fa-lg" :class="icon"></i>
         </a>
     <h1 class="title">
-        <router-link to="/">{{ title }}</router-link>
+        <router-link to="/"> <img id="logo" src="@/assets/Citadel.png" alt="logo citadel"></router-link>
     </h1>
         <UserDropdown v-if="!hideUserDropdown"/>
   </header>
 </template>
 
 <script>
-import UserDropdown from "./UserDropdown";
+import UserDropdown from "./UserDropdown"
 
 export default {
   name: "Header",
@@ -19,7 +19,7 @@ export default {
   props: {
     title: String,
     hideToggle: Boolean,
-    hideUserDropdown: Boolean
+    hideUserDropdown: Boolean,
   },
   computed: {
     icon() {
@@ -39,7 +39,8 @@ export default {
 <style>
 .header {
   grid-area: header;
-  background: linear-gradient(to right, #1e469a, #49a7c1);
+  background: linear-gradient(to right, #1E1E1E, #323232);
+  border-bottom: solid 5px #479457;
 
   display: flex;
   justify-content: center;
@@ -74,5 +75,9 @@ header.header > a.toggle {
 header.header > a.toggle:hover {
   color: #fff;
   background-color: rgba(0, 0, 0, 0.2);
+}
+#logo{
+  width: 200px;
+  padding-top: 10px;
 }
 </style>

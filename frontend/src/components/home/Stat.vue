@@ -26,13 +26,12 @@ export default {
     .stat{
         flex: 1;
         display: flex;
-        border-radius: 8px;
         margin-right: 20px;
         margin-bottom: 20px;
-        background-color: #fff;
+        background-color: #323232;
         padding: 20px;
-        border: 1px solid rgba(0, 0, 0, 0.2);
-        box-shadow: 0 1px 5px rgba(0, 0 ,0 ,0.15);
+        border: 0.5px solid #616161;
+        border-bottom: 5px solid #479457;
     }
     .stat-icon{
         display: flex;
