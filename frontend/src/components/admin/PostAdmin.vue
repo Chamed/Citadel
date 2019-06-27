@@ -6,7 +6,7 @@
                 <b-form-input id="post-name" type="text"
                     v-model="post.name" required
                     :readonly="mode === 'remove'"
-                    placeholder="Informe o Nome do Post..." />
+                    placeholder="Informe o título do Post..." />
             </b-form-group>
             <b-form-group label="Descrição" label-for="post-description">
                 <b-form-input id="post-description" type="text"
