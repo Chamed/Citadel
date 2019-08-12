@@ -4,10 +4,10 @@
             <div class="auth-title">{{ showSignup ? 'Cadastro' : 'Login'}} </div>
             <hr>
 
-            <input v-if="showSignup" v-model="user.name" type="text" placeholder="Nome">
-            <input v-model="user.email" name="email" type="text" placeholder="E-mail">
-            <input v-model="user.password" name="password" type="password" placeholder="Senha">
-            <input v-if="showSignup" v-model="user.confirmPassword" type="password" placeholder="Confirme a sua senha">
+            <input class="strong-color" v-if="showSignup" v-model="user.name" type="text" placeholder="Nome">
+            <input class="strong-color" v-model="user.email" name="email" type="text" placeholder="E-mail">
+            <input class="strong-color" v-model="user.password" name="password" type="password" placeholder="Senha">
+            <input class="strong-color" v-if="showSignup" v-model="user.confirmPassword" type="password" placeholder="Confirme a sua senha">
 
             <button class="button-login-register" v-if="showSignup" @click="signup">Registrar</button>
             <button class="button-login-register" v-else @click="signin">Entrar</button>
@@ -133,5 +133,8 @@ export default {
         border-radius: 5px;
         width: 100%;
         margin-top: 10px;
+    }
+    .strong-color{
+        color: #272727 !important;
     }
 </style>

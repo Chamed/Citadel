@@ -15,9 +15,9 @@ module.exports = app => {
         if(!user){
              return res.status(400).send('Usuário não foi encontrado')
         }
-
         const isMatch = bcripty.compareSync(req.body.password, user.password)
         if(!isMatch) return res.status(401).send('E-mail ou senha inválidos')
+
 
         const now = Math.floor(Date.now()/1000)
 
