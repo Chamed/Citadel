@@ -10,18 +10,20 @@
             <Stat title="Usuários" :value="stat.users"
                 icon="fa fa-user" color="#028090"/>
         </div>
+        <PostAdmin/>
     </div>
 </template>
 
 <script>
 import PageTitle from '@/components/template/PageTitle';
+import PostAdmin from '@/components/admin/PostAdmin'
 import Stat from '@/components/home/Stat'
 import axios from 'axios'
 import { baseApiUrl} from '@/global'
 
 export default {
     name: 'Home',
-    components: { PageTitle, Stat },
+    components: { PageTitle, Stat, PostAdmin },
     data: function() {
         return {
             stat: {}
