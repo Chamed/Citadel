@@ -81,9 +81,12 @@ thead:hover{
     background-color: #464646;
     border-bottom: solid 5px #479457;
 }
-.form-control, .form-control:focus, .form-control::placeholder, .custom-select{
+.form-control, .form-control:focus, .form-control[readonly], .custom-select{
     background-color: #6B6B6B;     
-    color: #dcdcdc !important;
+    color: #fff !important;
+}
+.form-control::placeholder{
+    color: #303030;
 }
 input, select{
     color: #dcdcdc !important;

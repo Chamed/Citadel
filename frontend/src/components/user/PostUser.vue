@@ -1,5 +1,5 @@
 <template>
-    <div class="post-admin">
+    <div class="post-user">
         <b-form>
             <input id="post-id" type="hidden" v-model="post.id" />
             <b-form-group label="Nome:" label-for="post-name">
@@ -25,11 +25,6 @@
                 label="Categoria:" label-for="post-categoryId">
                 <b-form-select id="post-categoryId"
                     :options="categories" v-model="post.categoryId" />
-            </b-form-group>
-            <b-form-group v-if="mode === 'save'" 
-                label="Autor:" label-for="post-userId">
-                <b-form-select id="post-userId"
-                    :options="users" v-model="post.userId" />
             </b-form-group>
             <b-form-group v-if="mode === 'save'"
                 label="Conteúdo" label-for="post-content">
@@ -60,18 +55,19 @@
 <script>
 import { VueEditor } from "vue2-editor"
 import { baseApiUrl, showError } from '@/global'
+import { mapState } from 'vuex'
 import axios from 'axios'
 
 export default {
-    name: 'PostAdmin',
+    name: 'PostUser',
     components: { VueEditor },
+    computed: mapState(['user']),
     data: function() {
         return {
             mode: 'save',
             post: {},
             posts: [],
             categories: [],
-            users: [],
             page: 1,
             limit: 0,
             count: 0,
@@ -98,7 +94,7 @@ export default {
             this.loadPost()
         },
         save() {
-            console.log(this.post)
+            this.post.userId = this.user.id
             const method = this.post.id ? 'put' : 'post'
             const id = this.post.id ? `/${this.post.id}` : ''
             axios[method](`${baseApiUrl}/posts${id}`, this.post)
@@ -130,14 +126,6 @@ export default {
                 })
             })
         },
-        loadUsers() {
-            const url = `${baseApiUrl}/users`
-            axios.get(url).then(res => {
-                this.users = res.data.map(user => {
-                    return { value: user.id, text: `${user.name} - ${user.email}` }
-                })
-            })
-        }
     },
     watch: {
         page() {
@@ -145,7 +133,6 @@ export default {
         }
     },
     mounted() {
-        this.loadUsers()
         this.loadCategories()
         this.loadPost()
     }
@@ -153,5 +140,12 @@ export default {
 </script>
 
 <style>
-
+.post-user{
+    margin-right: 20px;
+    margin-bottom: 20px;
+    background-color: #323232;
+    padding: 20px;
+    border: 0.5px solid #616161;
+    border-bottom: 5px solid #479457;
+}
 </style>

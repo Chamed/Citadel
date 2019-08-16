@@ -37,9 +37,12 @@ export default {
          color: #dcdcdc;
     }   
     .post-content {
+        border-radius: 25px;
+        margin-right: 20px;
+        margin-bottom: 20px;
         background-color: #323232;
-        border-radius: 8px;
-        padding: 25px;
+        padding: 20px;
+        border-bottom: 5px solid #479457;
     }
 
     .post-content pre {
