@@ -54,7 +54,7 @@ module.exports = app => {
             const query = user ? {userId:user}: {}
 
             app.db('posts')
-                .select('id', 'name', 'description')
+                .select()
                 .where(query)
                 .limit(limit).offset(page * limit - limit)
                 .then(posts => res.json({ data: posts, count, limit}))

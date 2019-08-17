@@ -89,5 +89,8 @@ export default {
 		"content content"
 		"footer footer"
 	}
+	.content{
+		overflow-x: hidden;
+	}
 
 </style>

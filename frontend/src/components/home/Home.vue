@@ -25,7 +25,7 @@ import { baseApiUrl} from '@/global'
 
 export default {
     name: 'Home',
-    components: { PageTitle, Stat, PostUser, Highlights },
+    components: { PageTitle, Stat, PostUser, Highlights},
     data: function() {
         return {
             stat: {}
