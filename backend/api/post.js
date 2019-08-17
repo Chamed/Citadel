@@ -47,8 +47,17 @@ module.exports = app => {
         const get = async (req, res) =>{
             const page = req.query.page || 1
 
+            const user = req.query.userId
             const result = await app.db('posts').count('id').first()
             const count = parseInt(result.count)
+            
+            user ? 
+            app.db('posts')
+                .select('id', 'name', 'description')
+                .where({userId: user})
+                .limit(limit).offset(page * limit - limit)
+                .then(posts => res.json({ data: posts, count, limit}))
+                .catch(err => res.status(500).send(err)):
 
             app.db('posts')
                 .select('id', 'name', 'description')

@@ -98,7 +98,6 @@ export default {
             this.loadPost()
         },
         save() {
-            console.log(this.post)
             const method = this.post.id ? 'put' : 'post'
             const id = this.post.id ? `/${this.post.id}` : ''
             axios[method](`${baseApiUrl}/posts${id}`, this.post)
