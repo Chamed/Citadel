@@ -10,6 +10,7 @@
             <Stat title="Usuários" :value="stat.users"
                 icon="fa fa-user" color="#028090"/>
         </div>
+        <Highlights/>
         <PostUser/>
     </div>
 </template>
@@ -18,12 +19,13 @@
 import PageTitle from '@/components/template/PageTitle';
 import PostUser from '@/components/user/PostUser'
 import Stat from '@/components/home/Stat'
+import Highlights from '@/components/home/Highlights'
 import axios from 'axios'
 import { baseApiUrl} from '@/global'
 
 export default {
     name: 'Home',
-    components: { PageTitle, Stat, PostUser },
+    components: { PageTitle, Stat, PostUser, Highlights },
     data: function() {
         return {
             stat: {}

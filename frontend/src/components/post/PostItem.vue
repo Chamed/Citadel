@@ -34,6 +34,7 @@ export default {
         padding: 20px;
         border-bottom: 5px solid #479457;
         box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+        margin-right: 20px
     }
 
     .post-item a {
