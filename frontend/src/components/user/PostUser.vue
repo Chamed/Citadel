@@ -82,7 +82,7 @@ export default {
     methods: {
         loadPost() {
             const url = `${baseApiUrl}/posts?page=${this.page}&userId=${this.user.id}`
-            axios.get(url, 'ola').then(res => {
+            axios.get(url).then(res => {
                 this.posts = res.data.data
                 this.count = res.data.count
                 this.limit = res.data.limit

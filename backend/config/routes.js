@@ -36,6 +36,11 @@ module.exports = app => {
         .get(app.api.post.get)
         .post(app.api.post.save)
 
+    app.route('/comments')
+        // .all(app.config.passport.authenticate())
+        .post(app.api.comment.save)
+        .get(app.api.comment.get)
+
     app.route('/posts/:id')
         .all(app.config.passport.authenticate())
         .get(app.api.post.getPostById)

@@ -1,7 +1,10 @@
 <template>
-    <div class="post-by-id">
-        <PageTitle icon="fa fa-file-o" :main="post.name" :sub="post.description" />
-        <div class="post-content" v-html="post.content"></div>
+    <div class="container">
+        <div class="post-by-id">
+            <PageTitle icon="fa fa-file-o" :main="post.name" :sub="post.description" />
+            <div class="post-content" v-html="post.content"></div>
+        </div>
+        <Comment />
     </div>
 </template>
 
@@ -11,10 +14,11 @@ import hljs from 'highlightjs/highlight.pack.js'
 import { baseApiUrl } from '@/global'
 import axios from 'axios'
 import PageTitle from '../template/PageTitle'
+import Comment from '@/components/comments/Comment'
 
 export default {
     name: 'PostById',
-    components: { PageTitle },
+    components: { PageTitle, Comment },
     data: function() {
         return {
             post: {}
@@ -34,11 +38,10 @@ export default {
 
 <style>
     .post-by-id {
-         color: #dcdcdc;
+        color: #dcdcdc;
     }   
     .post-content {
         border-radius: 25px;
-        margin-right: 20px;
         margin-bottom: 20px;
         background-color: #323232;
         padding: 20px;

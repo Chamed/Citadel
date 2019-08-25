@@ -10,6 +10,7 @@
             <Stat title="Usuários" :value="stat.users"
                 icon="fa fa-user" color="#028090"/>
         </div>
+        <hr>
         <Highlights/>
         <PostUser/>
     </div>

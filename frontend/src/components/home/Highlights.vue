@@ -1,5 +1,5 @@
 <template>
-    <carousel :items="1" :loop="true" :autoplay="true" >
+    <carousel :nav="false" :autoplayTimeout="4000" :items="2" :loop="true" :autoplay="true">
         <div class="post-item highlight">
             <router-link :to="{ name: 'postById', params: { id: this.posts[0].id } }">
                 <div class="post-item-image d-none d-sm-block">
@@ -125,7 +125,7 @@ export default {
     },
     mounted() {
         this.getPosts()
-    }
+    },
 }
 
 </script>
@@ -136,8 +136,48 @@ export default {
     width: 150px; 
 }
 .highlight{
-    margin: 0px 50px 0px 50px;
+    margin: 0px 20px 0px 0px;
     border-radius: 10px;
     padding-left: 10px;
+}
+.owl.owl-carousel.owl-theme .owl-nav {
+    margin-top: 0;
+    position: absolute;
+    width: 100%;
+    top: 44%;
+    left: 0;
+}
+
+.owl-theme .owl-nav [class*='owl-'] {
+    position: absolute;
+    font-size: 15px;
+    color: #000;
+    background: #479457;
+    top: 35%;
+    opacity: 0.6;
+    line-height: 1;
+    margin: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    padding: 10px 13px !important;
+}
+
+.owl-prev {
+    left: 0;
+}
+
+.owl-next {
+    right: 0;
+}
+
+.owl-theme.owl-carousel .owl-nav [class*="owl-"]:hover {
+    background: #479457;
+    opacity: 1;
+    color: #000;
+    text-decoration: none;
+}
+.owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span{
+    background: #479457;
 }
 </style>

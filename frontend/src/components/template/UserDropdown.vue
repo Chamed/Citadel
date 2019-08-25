@@ -73,7 +73,7 @@ export default {
         min-width: 170px;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
         padding: 10px;
-        z-index: 1;
+        z-index: 20;
 
         display: flex;
         flex-direction: column;
