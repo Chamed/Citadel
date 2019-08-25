@@ -40,6 +40,7 @@ module.exports = app => {
         // .all(app.config.passport.authenticate())
         .post(app.api.comment.save)
         .get(app.api.comment.get)
+        .delete(app.api.comment.remove)
 
     app.route('/posts/:id')
         .all(app.config.passport.authenticate())

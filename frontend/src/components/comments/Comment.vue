@@ -2,10 +2,10 @@
     <div>
         <b-form>
             <b-form-textarea class="comment" id="comment-content" type="text"
-            v-model="comment.comment" required 
-            placeholder="Digite seu comentário..."
-            rows="3"
-            max-rows="6">
+                v-model="comment.comment" required 
+                placeholder="Digite seu comentário..."
+                rows="3"
+                max-rows="6">
             </b-form-textarea>
             <b-button id="comment-button" variant="success" @click="save"> Comentar</b-button>
         </b-form>
@@ -16,8 +16,12 @@
                     <span>
                         <strong class="grey">Autor: </strong>{{ comment.author }}
                     </span>
+                    <div style="display: flex; flex-direction: column;" >
+                        <b-button v-if="comment.email == user.email || user.admin" style="align-self: flex-end; margin-top: -80px" variant="danger"  
+                        @click="remove(comment.id)"> Excluir</b-button>
+                    </div>
                     <hr>
-                    <div>
+                    <div class="comment-content">
                         <p>{{ comment.comment }}</p>
                     </div>
                 </div>
@@ -43,9 +47,6 @@ export default {
     components: { Gravatar },
     computed: mapState(['user']),
     methods:{
-        reset() {
-            this.comment = {}
-        },
         save() {
             const url = window.location.pathname
             this.postId = url.replace(/\D/g,'');
@@ -54,10 +55,17 @@ export default {
             axios.post(`${baseApiUrl}/comments`, this.comment)
             .then(() => {
                 this.$toasted.global.defaultSuccess()
-                this.reset()
                 this.getComments()
             })
             .catch(showError)
+        },
+         remove(comment) {
+            axios.delete(`${baseApiUrl}/comments?id=${comment}`)
+                .then(() => {
+                    this.$toasted.global.defaultSuccess()
+                     this.getComments()
+                })
+                .catch(showError)
         },
         getComments() {
             const url = window.location.pathname
@@ -87,6 +95,12 @@ export default {
         border-radius: 10px;
         border-bottom: 5px solid #479457;
         box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+        
+    }
+    .comment-content{
+        display: flex;
+        align-self: stretch;
+        flex-direction: column;
     }
     .comment-item span{
         color: #fff;

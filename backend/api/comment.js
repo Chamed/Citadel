@@ -28,7 +28,7 @@ module.exports = app => {
     const remove = async (req, res) => {
         try{
             const rowsDeleted = await app.db('comments')
-                .where({ id: req.params.id}).del()
+                .where({ id: req.query.id}).del()
             existsOrError(rowsDeleted, 'Comentario não foi encontrado')
 
             res.status(204).send()
@@ -40,7 +40,6 @@ module.exports = app => {
 
         const get = async (req, res) =>{
             const post = req.query.id
-            console.log(req)
 
             app.db({c: 'comments', u: 'users'})
                 .select('c.id', 'c.comment', {author: 'u.name'}, {email: 'u.email'})
