@@ -55,15 +55,19 @@ export default {
             axios.post(`${baseApiUrl}/comments`, this.comment)
             .then(() => {
                 this.$toasted.global.defaultSuccess()
+                this.reset()
                 this.getComments()
             })
             .catch(showError)
+        },
+        reset() {
+            this.comment = {}
         },
          remove(comment) {
             axios.delete(`${baseApiUrl}/comments?id=${comment}`)
                 .then(() => {
                     this.$toasted.global.defaultSuccess()
-                     this.getComments()
+                    this.getComments()
                 })
                 .catch(showError)
         },
