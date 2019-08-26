@@ -12,13 +12,15 @@
          <div class="comments">
             <div v-for="comment in comments" :key="comment.id">
                 <div class="comment-item">
-                        <Gravatar :email="comment.email" alt="User"/>
-                    <span>
-                        <strong class="grey">Autor: </strong>{{ comment.author }}
-                    </span>
-                    <div style="display: flex; flex-direction: column;" >
-                        <b-button v-if="comment.email == user.email || user.admin" style="align-self: flex-end; margin-top: -80px" variant="danger"  
-                        @click="remove(comment.id)"> Excluir</b-button>
+                    <div class="avatar-button">
+                        <div class="avatar-name">
+                            <Gravatar :email="comment.email" alt="User"/>
+                            <span>
+                                <strong class="grey"> </strong>{{ comment.author }}
+                            </span>
+                        </div>
+                        <b-button v-if="comment.email == user.email || user.admin" variant="danger"
+                                  @click="remove(comment.id)"> Excluir</b-button>
                     </div>
                     <hr>
                     <div class="comment-content">
@@ -101,11 +103,7 @@ export default {
         box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
         
     }
-    .comment-content{
-        display: flex;
-        align-self: stretch;
-        flex-direction: column;
-    }
+
     .comment-item span{
         color: #fff;
     }
@@ -135,5 +133,13 @@ export default {
     #comment-button{
         margin-top: 10px;
         width: 100%;
+    }
+
+    .avatar-button {
+        display: flex;
+        justify-content: space-between;
+        -webkit-justify-content: space-between;
+        -webkit-align-items: center;
+        align-items: center;
     }
 </style>
