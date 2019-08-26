@@ -81,14 +81,57 @@ thead:hover{
     background-color: #464646;
     border-bottom: solid 5px #479457;
 }
-.form-control, .form-control:focus, .form-control[readonly], .custom-select{
-    background-color: #6B6B6B;     
-    color: #fff !important;
+
+form .form-control, form .custom-select, form .ql-editor {
+    background: none;
+    color: #ffffff;
+}
+
+form .ql-snow.ql-toolbar button.ql-active .ql-stroke,
+form .ql-snow.ql-toolbar button:hover .ql-stroke {
+    stroke: #479457;
+}
+
+form .ql-editor.ql-blank:before {
+    color: #999;
+}
+
+form .form-control:focus {
+    background-color: #6B6B6B;
+    color: #fff;
+    outline: none;
+    box-shadow: none;
+    border: 1px solid #479457;
+}
+
+form .custom-select:focus:focus {
+    box-shadow: none;
+    border: 1px solid #479457;
+}
+
+.form-control[readonly]{
+    background-color: #6B6B6B;
+    color: #fff;
 }
 .form-control::placeholder{
     color: #303030;
 }
-input, select{
-    color: #dcdcdc !important;
+
+
+
+::-webkit-input-placeholder {
+    color: #999999 !important;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+    color: #999999 !important;
+}
+
+::-moz-placeholder { /* Firefox 19+ */
+    color: #999999 !important;
+}
+
+:-ms-input-placeholder {
+    color: #999999 !important;
 }
 </style>

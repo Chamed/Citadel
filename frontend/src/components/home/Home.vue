@@ -1,18 +1,20 @@
 <template>
     <div class="home">
-        <PageTitle icon="fa fa-university" main="Bem vindo"
-            sub="Com você nossa comunidade é mais forte" />
-        <div class="stats">
-            <Stat title="Categorias" :value="stat.categories"
-                icon="fa fa-folder" color="#F45B69"/>
-            <Stat title="Postagens" :value="stat.posts"
-                icon="fa fa-file" color="#84B369"/>
-            <Stat title="Usuários" :value="stat.users"
-                icon="fa fa-user" color="#028090"/>
+        <div class="container">
+            <PageTitle icon="fa fa-university" main="Bem vindo"
+                       sub="Com você nossa comunidade é mais forte" />
+            <div class="stats">
+                <Stat title="Categorias" :value="stat.categories"
+                      icon="fa fa-folder" color="#F45B69"/>
+                <Stat title="Postagens" :value="stat.posts"
+                      icon="fa fa-file" color="#84B369"/>
+                <Stat title="Usuários" :value="stat.users"
+                      icon="fa fa-user" color="#028090"/>
+            </div>
+            <hr>
+            <Highlights/>
+            <PostUser/>
         </div>
-        <hr>
-        <Highlights/>
-        <PostUser/>
     </div>
 </template>
 

@@ -8,13 +8,18 @@
             <i class="fa fa-angle-down"></i>
         </div>
         <div class="user-dropdown-content">
-            <router-link to="/admin" v-if="user.admin">
-                <i class="fa fa-cogs"></i>Administração
+            <router-link to="/admin" v-if="user.admin" title="Administração">
+                <i class="fa fa-cogs"></i>
+                <span>Administração</span>
             </router-link>
-            <router-link to="/profile">
-              <i class="fa fa-user"></i>Perfil
+            <router-link to="/profile" title="Perfil">
+              <i class="fa fa-user"></i>
+                <span>Perfil</span>
             </router-link>
-             <a href @click.prevent="logout"><i class="fa fa-sign-out"></i>Sair</a>
+             <a href @click.prevent="logout" title="Sair">
+                 <i class="fa fa-sign-out"></i>
+                 <span>Sair</span>
+             </a>
         </div>
     </div>
 </template>
@@ -100,5 +105,8 @@ export default {
         color: #DCDCDC;
         background-color: #323232;
 
+    }
+    .user-dropdown-content i {
+        margin-right: 5px;
     }
 </style>
