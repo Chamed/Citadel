@@ -1,5 +1,5 @@
 <template>
-    <carousel :nav="false" :autoplayTimeout="4000" :items="2" :loop="true" :autoplay="true">
+    <Carousel :nav="false" :responsive="{600:{items:1,nav:false},800:{items:2,nav:false}}" :autoplayTimeout="4000" :items="2" :loop="true" :autoplay="true">
         <div class="post-item highlight">
             <router-link :to="{ name: 'postById', params: { id: this.posts[0].id } }">
                 <div class="post-item-image d-none d-sm-block">
@@ -96,7 +96,7 @@
                 </div>
             </router-link>
         </div>
-    </carousel>
+    </Carousel>
 </template>
 
 <script>
@@ -104,12 +104,12 @@ import { baseApiUrl } from '@/global'
 import axios from 'axios'
 import PageTitle from '@/components/template/PageTitle'
 import PostItem from '@/components/post/PostItem'
-import carousel from 'vue-owl-carousel'
+import Carousel from 'vue-owl-carousel'
 
 
 export default {
     name: 'Highlights',
-    components: { PageTitle, PostItem, carousel},
+    components: { PageTitle, PostItem, Carousel},
     data: function() {
         return {
             posts: []
@@ -120,6 +120,7 @@ export default {
             const url = `${baseApiUrl}/posts`
             axios.get(url).then(res => {
                 this.posts = res.data.data
+                console.log(this.posts)
             })
         }
     },

@@ -83,7 +83,7 @@ thead:hover{
 }
 
 form .form-control, form .custom-select, form .ql-editor {
-    background: none;
+    background: #323232;
     color: #ffffff;
 }
 
@@ -116,7 +116,6 @@ form .custom-select:focus:focus {
 .form-control::placeholder{
     color: #303030;
 }
-
 
 
 ::-webkit-input-placeholder {

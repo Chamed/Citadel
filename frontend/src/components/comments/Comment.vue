@@ -16,9 +16,12 @@
                         <div class="avatar-name">
                             <Gravatar :email="comment.email" alt="User"/>
                             <span>
-                                <strong class="grey"> </strong>{{ comment.author }}
+                                {{ comment.author }}
                             </span>
                         </div>
+                        <span>
+                            <strong class="grey">{{comment.createdAt | moment("LLLL")}}</strong>
+                        </span>
                         <b-button v-if="comment.email == user.email || user.admin" variant="danger"
                                   @click="remove(comment.id)"> Excluir</b-button>
                     </div>
@@ -35,8 +38,16 @@
 <script>
 import { baseApiUrl, showError } from '@/global'
 import { mapState } from 'vuex'
+import Vue from 'vue'
 import axios from 'axios'
 import Gravatar from 'vue-gravatar'
+const moment = require('moment')
+require('moment/locale/pt-br')
+
+Vue.use(require('vue-moment'),{
+    moment
+});
+
 
 export default {
     name: 'Comment',
@@ -54,6 +65,7 @@ export default {
             this.postId = url.replace(/\D/g,'');
             this.comment.userId = this.user.id
             this.comment.postId = this.postId
+            this.comment.createdAt = new Date()
             axios.post(`${baseApiUrl}/comments`, this.comment)
             .then(() => {
                 this.$toasted.global.defaultSuccess()

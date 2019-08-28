@@ -42,7 +42,7 @@ module.exports = app => {
             const post = req.query.id
 
             app.db({c: 'comments', u: 'users'})
-                .select('c.id', 'c.comment', {author: 'u.name'}, {email: 'u.email'})
+                .select('c.id', 'c.comment', 'c.createdAt', {author: 'u.name'}, {email: 'u.email'})
                 .where({postId: post})
                 .whereRaw('?? = ??', ['u.id', 'c.userId'])
                 .then(posts => res.json({ data: posts}))
