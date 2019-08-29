@@ -4,6 +4,7 @@
             <PageTitle icon="fa fa-file-o" :main="post.name" :sub="post.description" />
             <div class="post-content" v-html="post.content"></div>
         </div>
+        <Like />
         <Comment />
     </div>
 </template>
@@ -15,10 +16,11 @@ import { baseApiUrl } from '@/global'
 import axios from 'axios'
 import PageTitle from '../template/PageTitle'
 import Comment from '@/components/comments/Comment'
+import Like from '@/components/post/Like'
 
 export default {
     name: 'PostById',
-    components: { PageTitle, Comment },
+    components: { PageTitle, Comment, Like },
     data: function() {
         return {
             post: {}
@@ -32,7 +34,12 @@ export default {
         document.querySelectorAll('.post-content pre.ql-syntax').forEach(e => {
             hljs.highlightBlock(e)
         })
-    }
+    },
+    methods:{
+        likeDislike(){
+            document.getElementById('like').classList.toggle('liked')
+        }
+    }       
 }
 </script>
 
@@ -62,5 +69,14 @@ export default {
 
     .post-content :last-child {
         margin-bottom: 0px;
+    }
+    .like{
+        color: #dcdcdc;
+        font-size: 30px;
+        cursor: pointer;
+        margin-bottom: 15px;
+    }
+    .liked{
+        color: #479457
     }
 </style>

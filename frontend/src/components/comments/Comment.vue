@@ -88,9 +88,10 @@ export default {
         getComments() {
             const url = window.location.pathname
             this.postId = url.replace(/\D/g,'');
-            axios.get(`${baseApiUrl}/comments?id=${this.postId}`).then(res => {
-                this.comments = res.data.data
-            })
+            axios.get(`${baseApiUrl}/comments?id=${this.postId}`)
+                .then(res => {
+                    this.comments = res.data.data
+                })
         },
     },
     mounted() {

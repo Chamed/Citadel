@@ -1,5 +1,5 @@
 <template>
-    <Carousel :nav="false" :responsive="{600:{items:1,nav:false},800:{items:2,nav:false}}" :autoplayTimeout="4000" :items="2" :loop="true" :autoplay="true">
+    <Carousel :nav="false" :responsive="{600:{items:1,nav:false},1200:{items:2,nav:false}}" :autoplayTimeout="4000" :items="2" :loop="true" :autoplay="true">
         <div class="post-item highlight">
             <router-link :to="{ name: 'postById', params: { id: this.posts[0].id } }">
                 <div class="post-item-image d-none d-sm-block">
@@ -120,7 +120,6 @@ export default {
             const url = `${baseApiUrl}/posts`
             axios.get(url).then(res => {
                 this.posts = res.data.data
-                console.log(this.posts)
             })
         }
     },

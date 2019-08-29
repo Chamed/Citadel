@@ -6,7 +6,7 @@ module.exports = app => {
     app.post('/validateToken', app.api.auth.validateToken)
 
     app.route('/users')
-        // .all(app.config.passport.authenticate())
+        .all(app.config.passport.authenticate())
         .post(app.api.user.save)
         .get(app.api.user.get)
 
@@ -37,10 +37,16 @@ module.exports = app => {
         .post(app.api.post.save)
 
     app.route('/comments')
-        // .all(app.config.passport.authenticate())
+        .all(app.config.passport.authenticate())
         .post(app.api.comment.save)
         .get(app.api.comment.get)
         .delete(app.api.comment.remove)
+
+    app.route('/likes')
+        // .all(app.config.passport.authenticate())
+        .post(app.api.likes.save)
+        .get(app.api.likes.get)
+        .delete(app.api.likes.remove)
 
     app.route('/posts/:id')
         .all(app.config.passport.authenticate())
