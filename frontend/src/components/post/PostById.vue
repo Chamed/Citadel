@@ -1,7 +1,18 @@
 <template>
     <div class="container">
         <div class="post-by-id">
-            <PageTitle icon="fa fa-file-o" :main="post.name" :sub="post.description" />
+            <div style="display: flex;">
+            <router-link v-if="this.user.id == post.userId" :to="{ name: 'profile', params: {id: post.userId}}">
+                <Gravatar id='user-pic' style="cursor: pointer; border: solid 2px #fff;border-radius: 50%;" :email="post.email" alt="User"/>
+            </router-link>
+            <router-link v-if="this.user.id != post.userId" :to="{ name: 'publicProfile', params: {id: post.userId}}">
+                <Gravatar id='user-pic' style="cursor: pointer; border: solid 2px #fff;border-radius: 50%;" :email="post.email" alt="User"/>
+            </router-link>
+                <h4 style=" margin: 5px 0px 0px 5px">{{post.author}} </h4>
+                <span style="margin: 10px 0px 0px 5px; color: #666"> <i  style="color:#479457" class="fa fa-chevron-right"></i>{{post.category}}</span>
+            </div>   
+                <hr style="color: #666;">
+            <PageTitle style="margin-top: 50px" icon="fa fa-file-o" :main="post.name" :sub="post.description" />
             <div class="post-content" v-html="post.content"></div>
         </div>
         <Like />
@@ -16,19 +27,22 @@ import { baseApiUrl } from '@/global'
 import axios from 'axios'
 import PageTitle from '../template/PageTitle'
 import Comment from '@/components/comments/Comment'
+import Gravatar from 'vue-gravatar'
+import { mapState } from 'vuex'
 import Like from '@/components/post/Like'
 
 export default {
     name: 'PostById',
-    components: { PageTitle, Comment, Like },
+    components: { PageTitle, Comment, Like, Gravatar },
+    computed: mapState(['user']),
     data: function() {
         return {
-            post: {}
+            post: {},
         }
     },
     mounted() {
         const url = `${baseApiUrl}/posts/${this.$route.params.id}`
-        axios.get(url).then(res => this.post = res.data)
+        axios.get(url).then(res => this.post = res.data) 
     },
     updated() {
         document.querySelectorAll('.post-content pre.ql-syntax').forEach(e => {
@@ -38,12 +52,15 @@ export default {
     methods:{
         likeDislike(){
             document.getElementById('like').classList.toggle('liked')
-        }
-    }       
+        },   
+    } 
 }
 </script>
 
 <style>
+    img#user-pic {
+        height: 50px;
+    }
     .post-by-id {
         color: #dcdcdc;
     }   

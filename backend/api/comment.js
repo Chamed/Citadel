@@ -26,6 +26,7 @@ module.exports = app => {
 
     }
     const remove = async (req, res) => {
+    
         try{
             const rowsDeleted = await app.db('comments')
                 .where({ id: req.query.id}).del()

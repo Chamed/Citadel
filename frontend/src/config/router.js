@@ -6,6 +6,7 @@ import AdminPages from '@/components/admin/AdminPages'
 import PostsByCategory from '@/components/post/PostsByCategory'
 import PostById from '@/components/post/PostById'
 import Profile from '@/components/user/Profile'
+import PublicProfile from '@/components/user/PublicProfile'
 import Auth from '@/components/auth/Auth'
 
 import { userKey } from '@/global'
@@ -20,6 +21,11 @@ const routes = [{
     name: 'profile',
     path: '/profile',
     component: Profile,
+},
+{
+    name: 'publicProfile',
+    path: '/profile/:id',
+    component: PublicProfile,
 },{
     name: 'adminPages',
     path: '/admin',

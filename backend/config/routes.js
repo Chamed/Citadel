@@ -43,7 +43,7 @@ module.exports = app => {
         .delete(app.api.comment.remove)
 
     app.route('/likes')
-        // .all(app.config.passport.authenticate())
+        .all(app.config.passport.authenticate())
         .post(app.api.likes.save)
         .get(app.api.likes.get)
         .delete(app.api.likes.remove)

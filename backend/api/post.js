@@ -57,13 +57,17 @@ module.exports = app => {
                 .select()
                 .where(query)
                 .limit(limit).offset(page * limit - limit)
+                .orderBy('id','desc')
                 .then(posts => res.json({ data: posts, count, limit}))
                 .catch(err => res.status(500).send(err))
         }    
 
         const getPostById = (req, res) => {
-            app.db('posts')
-                .where({id: req.params.id})
+            app.db({p: 'posts', u: 'users', c: 'categories'})
+                .select('p.id', 'p.name', 'p.description', 'p.imageUrl', 'p.content', 'p.userId', {email: 'u.email'}, {author: 'u.name'}, {category: 'c.name'})
+                .where({'p.id': req.params.id})
+                .whereRaw('?? = ??', ['u.id', 'p.userId'])
+                .whereRaw('?? = ??', ['p.categoryId', 'c.id'])
                 .first()
                 .then(post => {
                     post.content = post.content.toString()
@@ -85,7 +89,7 @@ module.exports = app => {
                 .whereIn('categoryId', ids)
                 .orderBy('p.id', 'desc')
                 .then(posts => res.json(posts))
-                .catch(err => console.error(err))
+                .catch(err => res.status(500).send(err))
         }
         return { get, save, remove, getPostById, getByCategory  }
     }
