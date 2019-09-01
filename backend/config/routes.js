@@ -48,6 +48,17 @@ module.exports = app => {
         .get(app.api.likes.get)
         .delete(app.api.likes.remove)
 
+    app.route('/friendship/:type/:id')
+        .all(app.config.passport.authenticate())
+        .get(app.api.friendship.getFollow)
+
+    app.route('/friendship')
+        .all(app.config.passport.authenticate())
+        .post(app.api.friendship.save)
+        .get(app.api.friendship.get)
+        .delete(app.api.friendship.remove)
+
+
     app.route('/posts/:id')
         .all(app.config.passport.authenticate())
         .get(app.api.post.getPostById)
