@@ -56,7 +56,6 @@ module.exports = app => {
     }
 
     const getUserById = (req, res) => {
-        console.log('hm')
         app.db('users')
             .select('id', 'name', 'email', 'admin')
             .where({id: req.params.id})

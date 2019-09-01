@@ -4,7 +4,7 @@
             <label for="input-search">
                 <i class="fa fa-search fa-lg"></i>
             </label>
-            <input type="text" id="input-search" placeholder="O que esta procurando?" v-model="treeFilter" class="filter-field">
+            <input type="text" id="input-search" placeholder="O que está procurando?" v-model="treeFilter" class="filter-field">
         </div>
         <Tree :data="treeData" :options="treeOptions" :filter= "treeFilter" ref="tree"/>
     </aside>

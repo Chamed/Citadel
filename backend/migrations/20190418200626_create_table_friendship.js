@@ -1,11 +1,9 @@
 
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('friendship', table => {
-      table.integer('idRequester').references('id').inTable('users').notNull()
-      table.integer('idRequested').references('id').inTable('users').notNull()
-      table.integer('id').primary('idRequester', 'idRequested')
-      table.date('dateRequest').notNull()
-      table.string('status', 1).defaultTo('P')
+      table.integer('idFollower').references('id').inTable('users').notNull()
+      table.integer('idFollowing').references('id').inTable('users').notNull()
+      table.integer('id').primary('idFollower', 'idFollowing')
   })
 };
 

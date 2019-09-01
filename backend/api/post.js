@@ -17,6 +17,9 @@ module.exports = app => {
             res.status(400).send(msg)
         }
         if(post.id) {
+            post.email ? delete post.email: null
+            post.author ? delete post.author: null
+            post.category ? delete post.category: null
             app.db('posts')
                 .update(post)
                 .where({ id: post.id })

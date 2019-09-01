@@ -26,11 +26,6 @@
                 <b-form-select id="post-categoryId"
                     :options="categories" v-model="post.categoryId" />
             </b-form-group>
-            <b-form-group v-if="mode === 'save'" 
-                label="Autor:" label-for="post-userId">
-                <b-form-select id="post-userId"
-                    :options="users" v-model="post.userId" />
-            </b-form-group>
             <b-form-group v-if="mode === 'save'"
                 label="Conteúdo" label-for="post-content">
                 <VueEditor v-model="post.content" 
@@ -60,11 +55,13 @@
 <script>
 import { VueEditor } from "vue2-editor"
 import { baseApiUrl, showError } from '@/global'
+import { mapState } from 'vuex'
 import axios from 'axios'
 
 export default {
     name: 'PostAdmin',
     components: { VueEditor },
+    computed: mapState(['user']),
     data: function() {
         return {
             mode: 'save',
@@ -98,6 +95,7 @@ export default {
             this.loadPost()
         },
         save() {
+            this.post.userId = this.user.id
             const method = this.post.id ? 'put' : 'post'
             const id = this.post.id ? `/${this.post.id}` : ''
             axios[method](`${baseApiUrl}/posts${id}`, this.post)

@@ -12,7 +12,7 @@
                 <span style="margin: 10px 0px 0px 5px; color: #666"> <i  style="color:#479457" class="fa fa-chevron-right"></i>{{post.category}}</span>
             </div>   
                 <hr style="color: #666;">
-            <PageTitle style="margin-top: 50px" icon="fa fa-file-o" :main="post.name" :sub="post.description" />
+            <PageTitle icon="fa fa-file-o" :main="post.name" :sub="post.description" />
             <div class="post-content" v-html="post.content"></div>
         </div>
         <Like />

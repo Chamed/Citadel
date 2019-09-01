@@ -14,9 +14,10 @@
 // import axios from 'axios'
 import Gravatar from 'vue-gravatar'
 
+
 export default {
     name: 'Profile',
-    components: { Gravatar },
+    components: { Gravatar},
     computed: mapState(['user']),
 }
 </script>
