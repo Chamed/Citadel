@@ -8,7 +8,7 @@ module.exports = app => {
             app.db('friendship')
                 .insert(friendship)
                 .then(_ => res.status(204).send())
-                .catch(err => console.error(err))
+                .catch(err => res.status(500).send(err))
         }
 
     const remove = async (req, res) => {
@@ -30,21 +30,23 @@ module.exports = app => {
                 .select()
                 .where({id:`${req.query.idFollower}${req.query.idFollowing}`})
                 .then(friends => res.json({ data: friends}))
-                .catch(err => console.error(err))
+                .catch(err => res.status(500).send(err))
         } 
         
         const getFollow = async (req, res) =>{
            req.params.type == 'idFollower' ?
-            app.db('friendship')
-                .select()
-                .where({idFollower : req.params.id})
+            app.db({f: 'friendship', u: 'users'})
+                .select('u.id','u.name', 'u.email')
+                .where({'f.idFollower' : req.params.id})
+                .whereRaw('?? = ??', ['u.id', 'f.idFollowing'])
                 .then(friends => res.json({ data: friends}))
-                .catch(err => console.error(err)):
-            app.db('friendship')
-                .select()
-                .where({idFollowing : req.params.id})
+                .catch(err => res.status(500).send(err)):
+            app.db({f: 'friendship', u: 'users'})
+                .select('u.id','u.name', 'u.email')
+                .where({'f.idFollowing' : req.params.id})
+                .whereRaw('?? = ??', ['u.id', 'f.idFollower'])
                 .then(friends => res.json({ data: friends}))
-                .catch(err => console.error(err))
+                .catch(err => res.status(500).send(err))
         }  
         return { get, save, remove, getFollow }    
     }
