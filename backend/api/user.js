@@ -27,10 +27,11 @@ module.exports = app => {
             }
         
     }catch(msg){
-        return res.status(400).send(msg)
+        return console.error(msg)
     }
-    user.password = encryptPass(req.body.password)
+    user.update ? null :user.password = encryptPass(req.body.password)
     delete user.confirmPassword
+    delete user.update
 
     if(user.id){
         app.db('users')
@@ -49,7 +50,7 @@ module.exports = app => {
 
     const get = (req, res) => {
         app.db('users')
-            .select('id', 'name', 'email', 'admin')
+            .select()
             .whereNull('deletedAt')
             .then(users => res.json(users))
             .catch(err => res.status(500).send(err))
@@ -57,7 +58,7 @@ module.exports = app => {
 
     const getUserById = (req, res) => {
         app.db('users')
-            .select('id', 'name', 'email', 'admin')
+            .select()
             .where({id: req.params.id})
             .whereNull('deletedAt')
             .first()

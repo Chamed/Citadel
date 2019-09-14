@@ -14,6 +14,9 @@
             <div class="bio">
                  <PageTitle icon="fa fa-id-badge" main="Bio"
                     sub="Um pouco sobre mim..."/>
+                    <p>
+                    {{host.bio}}
+                    </p>
             </div>
         </div>
         <b-button v-if="!isFollowing" id="follow-button" variant="success" @click="followUnfollow"> Seguir </b-button>

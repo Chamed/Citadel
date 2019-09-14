@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="profile-info">
+        <div :background-image=user.coverImg class="profile-info">
             <Gravatar :email="user.email" alt="User"/>
             <h3 style="margin: 0px 0px 30px 10px; font-weight: bolder">{{user.name}}</h3>
             <hr>
@@ -14,6 +14,8 @@
             <div class="bio">
                  <PageTitle icon="fa fa-id-badge" main="Bio"
                     sub="Um pouco sobre mim..."/>
+                <textarea @blur="saveBio" v-model="user.bio" name="" id="bio">
+                </textarea>
             </div>
         </div>
         <div>
@@ -40,7 +42,7 @@
 </template>
 
 <script>
-import { baseApiUrl, showError } from '@/global'
+import { baseApiUrl } from '@/global'
 import { mapState } from 'vuex'
 import axios from 'axios'
 import Gravatar from 'vue-gravatar'
@@ -54,17 +56,42 @@ export default {
      data: function() {
         return {
             followers:{},
-            following:{}
+            following:{},
+            coverImg: ''
         }
     },
     mounted() {
         axios.get(`${baseApiUrl}/friendship/${'idFollower'}/${this.user.id}`).then(res => this.following = res.data.data)
         axios.get(`${baseApiUrl}/friendship/${'idFollowing'}/${this.user.id}`).then(res => this.followers = res.data.data)
     },
+    methods:{
+        saveBio(){
+          
+            axios.get(`${baseApiUrl}/users/${this.user.id}`).then(res => {
+                let user = res.data;
+                user.bio = document.getElementById("bio").value
+                user.confirmPassword = user.password
+                user.update = true
+                axios.put(`${baseApiUrl}/users/${this.user.id}`, user).then(res => {
+                    this.$toasted.global.defaultSuccess();
+                });
+            });
+        }
+    }
 }
 </script>
 
 <style>
+#bio{
+    background: #323232;
+    border: none;
+    resize: none;
+    width: 100%;
+    height: 100%;
+    vertical-align:top;
+    font-size: 15px;
+    color: #dcdcdc;
+}
 .friendship-modal{
     list-style-type: none;
 }
@@ -80,7 +107,6 @@ export default {
     cursor: pointer;
 }
 .profile-info{
-    background-image: url("https://www.oficinadanet.com.br/imagens/post/9638/off-button-facebook-cover.jpg");
     background-size: 900px 214px;
     display: flex;
     align-items: flex-end;
@@ -116,9 +142,10 @@ export default {
     background-color: #323232;
     padding: 15px;
     border-radius: 15px;
-    min-width: 300px;
+    min-width: 500px;
     border-bottom: solid 5px #479457;
     font-size: 1.8rem;
+    overflow: visible;
 }
 .bio h1{
     font-size: 1.8rem;
