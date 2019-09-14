@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div :background-image=user.coverImg class="profile-info">
+    <div :background-image=user.coverImg class="profile-info">
             <Gravatar :email="user.email" alt="User"/>
             <h3 style="margin: 0px 0px 30px 10px; font-weight: bolder">{{user.name}}</h3>
             <hr>
