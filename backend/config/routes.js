@@ -48,6 +48,12 @@ module.exports = app => {
         .get(app.api.likes.get)
         .delete(app.api.likes.remove)
 
+    app.route('/rating')
+        .all(app.config.passport.authenticate())
+        .post(app.api.rating.save)
+        .get(app.api.rating.get)
+        .delete(app.api.rating.remove)
+
     app.route('/friendship/:type/:id')
         .all(app.config.passport.authenticate())
         .get(app.api.friendship.getFollow)

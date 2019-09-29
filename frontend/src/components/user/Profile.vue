@@ -17,6 +17,13 @@
                 <textarea @blur="saveBio" v-model="user.bio" name="" id="bio">
                 </textarea>
             </div>
+             <div class="rating">
+                <PageTitle icon="fa fa-star" main="Avaliação"
+                sub=""/>
+                    <p>
+                        <span style="margin-left: 100px; font-size: 2rem">{{grade.toFixed(1)}}</span><span style="margin-left: 10px"><i class="fa fa-star rated"></i></span>
+                    </p>
+            </div>
         </div>
         <div>
             <b-modal scrollable hide-footer=true id="followers" title="Seguidores">
@@ -57,23 +64,34 @@ export default {
         return {
             followers:{},
             following:{},
-            coverImg: ''
+            coverImg: '',
+            grade: 0
         }
     },
     mounted() {
         axios.get(`${baseApiUrl}/friendship/${'idFollower'}/${this.user.id}`).then(res => this.following = res.data.data)
         axios.get(`${baseApiUrl}/friendship/${'idFollowing'}/${this.user.id}`).then(res => this.followers = res.data.data)
-    },
+
+        let grades = []
+        axios.get(`${baseApiUrl}/rating?id=${this.user.id}`)
+            .then(res => {
+                for(let i = 0; i < res.data.data.length; i++){
+                    console.log(res.data.data[i].grade)
+                    grades.push(res.data.data[i].grade) 
+                }
+                this.grade = grades.length > 0 ? (grades.reduce((a, b) => a + b, 0) / grades.length) : 0
+            }
+        )
+    },  
     methods:{
         saveBio(){
-          
             axios.get(`${baseApiUrl}/users/${this.user.id}`).then(res => {
                 let user = res.data;
                 user.bio = document.getElementById("bio").value
                 user.confirmPassword = user.password
                 user.update = true
                 axios.put(`${baseApiUrl}/users/${this.user.id}`, user).then(res => {
-                    this.$toasted.global.defaultSuccess();
+                    this.$toasted.global.defaultSuccess(res);
                 });
             });
         }
@@ -142,10 +160,25 @@ export default {
     background-color: #323232;
     padding: 15px;
     border-radius: 15px;
-    min-width: 500px;
+    min-width: 400px;
     border-bottom: solid 5px #479457;
     font-size: 1.8rem;
     overflow: visible;
+}
+.rating{
+    margin-top: 20px;
+    margin-left: 15px;
+    display:flex;
+    flex-direction: column;
+    color: #dcdcdc;
+    background-color: #323232;
+    padding: 15px;
+    border-radius: 15px;
+    min-width: 300px;
+    border-bottom: solid 5px #479457;
+    font-size: 1.8rem;
+    overflow: visible;
+    cursor: pointer;
 }
 .bio h1{
     font-size: 1.8rem;
