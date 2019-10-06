@@ -1,9 +1,10 @@
 <template>
     <div class="container">
-    <div class="profile-info">
+        <div :style="{ backgroundImage: `url(${coverImg})` }" class="profile-info">
             <Gravatar :email="user.email" alt="User"/>
             <h3 style="margin: 0px 0px 30px 10px; font-weight: bolder">{{user.name}}</h3>
             <hr>
+            <span v-b-modal.coverImg style="font-size: 2rem; opacity: 0.6; cursor:pointer"><i class="fa fa-camera"></i></span>
         </div>
         <div style="display:flex;">
             <div class="friendship" style="margin-right: 20px">
@@ -36,8 +37,12 @@
                     <hr>
                 </li>
             </b-modal>
-            <b-modal @ok="saveBio" scrollable id="bio" title="Bio">
-                <textarea @change="attBio" v-model="user.bio" id="bio">
+            <b-modal @ok="saveBio" @hidden="checkBio" scrollable id="bio" title="Bio">
+                <textarea v-model="bio" id="bio-text">
+                </textarea>
+            </b-modal>
+            <b-modal @ok="saveCoverImg"  @hidden="checkCoverImg" scrollable id="coverImg" title="Imagem de capa">
+                <textarea v-model="coverImg" id="cover-text">
                 </textarea>
             </b-modal>
             <b-modal scrollable hide-footer=true id="following" title="Seguindo">
@@ -72,13 +77,14 @@ export default {
             coverImg: '',
             grade: 0,
             bio: '',
-            textBio:''
+            coverImg:''
         }
     },
     mounted() {
         axios.get(`${baseApiUrl}/friendship/${'idFollower'}/${this.user.id}`).then(res => this.following = res.data.data)
         axios.get(`${baseApiUrl}/friendship/${'idFollowing'}/${this.user.id}`).then(res => this.followers = res.data.data)
         axios.get(`${baseApiUrl}/users/${this.user.id}`).then(res => this.bio = res.data.bio);
+        axios.get(`${baseApiUrl}/users/${this.user.id}`).then(res => this.coverImg = res.data.coverImg);
 
         let grades = []
         axios.get(`${baseApiUrl}/rating?id=${this.user.id}`)
@@ -94,7 +100,7 @@ export default {
         saveBio(){
             axios.get(`${baseApiUrl}/users/${this.user.id}`).then(res => {
                 let user = res.data
-                user.bio = this.textBio
+                user.bio = document.getElementById('bio-text').value
                 user.confirmPassword = user.password
                 user.update = true        
                 axios.put(`${baseApiUrl}/users/${this.user.id}`, user).then(res => {
@@ -102,15 +108,29 @@ export default {
                 });
             });
         },
-        attBio(){
-            this.textBio = event.target.value
+         saveCoverImg(){
+            axios.get(`${baseApiUrl}/users/${this.user.id}`).then(res => {
+                let user = res.data
+                user.coverImg = this.coverImg
+                user.confirmPassword = user.password
+                user.update = true        
+                axios.put(`${baseApiUrl}/users/${this.user.id}`, user).then(res => {
+                    axios.get(`${baseApiUrl}/users/${this.user.id}`).then(res => this.coverImg = res.data.coverImg);
+                });
+            });
+        },
+        checkBio(){
+            axios.get(`${baseApiUrl}/users/${this.user.id}`).then(res => this.bio = res.data.bio);
+        },
+        checkCoverImg(){
+            axios.get(`${baseApiUrl}/users/${this.user.id}`).then(res => this.coverImg = res.data.coverImg);
         }
     }
 }
 </script>
 
 <style>
-#bio{
+#bio, #bio-text, #cover-text{
     background: #323232;
     border: none;
     resize: none;
@@ -135,15 +155,15 @@ export default {
     cursor: pointer;
 }
 .profile-info{
-    background-size: 800px 214px;
-    background-image: url("https://optclean.com.br/wp-content/uploads/2017/03/filme-capa-para-twitter-bruce-lee.jpg");
+    background-size: 933px 315px;
     display: flex;
     align-items: flex-end;
     color: #dcdcdc;
     background-color: #323232;
     padding: 15px;
     border-radius: 15px;
-    max-width: 1000px;
+    max-width: 933px;
+    min-height: 315px;
     border-bottom: solid 7px #479457;
 }
 .profile-info img{
@@ -206,5 +226,8 @@ export default {
 }
 .modal-dialog-scrollable .modal-content {
     background-color: transparent;
+}
+#coverImg___BV_modal_footer_{
+    background-color: #323232;
 }
 </style>

@@ -1,10 +1,9 @@
 <template>
     <div class="container">
-        <div class="profile-info">
+        <div :style="{ backgroundImage: `url(${coverImg})` }" class="profile-info">
             <Gravatar :email="host.email" alt="User"/>
             <h3>{{host.name}}</h3>
             <hr>
-        <span style="font-size: 2rem; opacity: 0.6; cursor:pointer"><i class="fa fa-camera"></i></span>
         </div>   
          <div style="display:flex;">
             <div class="friendship" style="margin-right: 20px">
@@ -63,7 +62,8 @@ export default {
             following:{},
             rates: [],
             rated: {},
-            grade: 0
+            grade: 0, 
+            coverImg: ''
         }
     },
     async mounted() {
@@ -71,6 +71,8 @@ export default {
         axios.get(`${baseApiUrl}/friendship?idFollower=${this.user.id}&idFollowing=${this.host.id}`).then(res => this.isFollowing = res.data.data.length == 0 ? false: true)
         axios.get(`${baseApiUrl}/friendship/${'idFollower'}/${this.host.id}`).then(res => this.followers = res.data.data.length)
         axios.get(`${baseApiUrl}/friendship/${'idFollowing'}/${this.host.id}`).then(res => this.following = res.data.data.length)
+        axios.get(`${baseApiUrl}/users/${this.$route.params.id}`).then(res => this.coverImg = res.data.coverImg);
+
         let grades = []
         axios.get(`${baseApiUrl}/rating?id=${this.host.id}`)
             .then(res => {
