@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-    <div :background-image=user.coverImg class="profile-info">
+    <div class="profile-info">
             <Gravatar :email="user.email" alt="User"/>
             <h3 style="margin: 0px 0px 30px 10px; font-weight: bolder">{{user.name}}</h3>
             <hr>
@@ -11,11 +11,12 @@
                 <hr>
                 <span v-b-modal.following style="cursor:pointer;">Seguindo<i style="color:#479457; font-size: 1rem;margin-left: 5px;" class="fa fa-chevron-right"></i><span> {{following.length}}</span></span>
             </div>   
-            <div class="bio">
-                 <PageTitle icon="fa fa-id-badge" main="Bio"
+            <div v-b-modal.bio class="bio" style="cursor:pointer">
+                <PageTitle icon="fa fa-id-badge" main="Bio"
                     sub="Um pouco sobre mim..."/>
-                <textarea @blur="saveBio" v-model="user.bio" name="" id="bio">
-                </textarea>
+                <p style="font-size: 1.4rem; text-overflow: ellipsis; overflow: hidden;">
+                    {{bio}}
+                </p>
             </div>
              <div class="rating">
                 <PageTitle icon="fa fa-star" main="Avaliação"
@@ -34,6 +35,10 @@
                     </router-link>
                     <hr>
                 </li>
+            </b-modal>
+            <b-modal @ok="saveBio" scrollable id="bio" title="Bio">
+                <textarea @change="attBio" v-model="user.bio" id="bio">
+                </textarea>
             </b-modal>
             <b-modal scrollable hide-footer=true id="following" title="Seguindo">
                 <li class="friendship-modal" v-for="following in following" :key="following.email">
@@ -65,18 +70,20 @@ export default {
             followers:{},
             following:{},
             coverImg: '',
-            grade: 0
+            grade: 0,
+            bio: '',
+            textBio:''
         }
     },
     mounted() {
         axios.get(`${baseApiUrl}/friendship/${'idFollower'}/${this.user.id}`).then(res => this.following = res.data.data)
         axios.get(`${baseApiUrl}/friendship/${'idFollowing'}/${this.user.id}`).then(res => this.followers = res.data.data)
+        axios.get(`${baseApiUrl}/users/${this.user.id}`).then(res => this.bio = res.data.bio);
 
         let grades = []
         axios.get(`${baseApiUrl}/rating?id=${this.user.id}`)
             .then(res => {
                 for(let i = 0; i < res.data.data.length; i++){
-                    console.log(res.data.data[i].grade)
                     grades.push(res.data.data[i].grade) 
                 }
                 this.grade = grades.length > 0 ? (grades.reduce((a, b) => a + b, 0) / grades.length) : 0
@@ -86,14 +93,17 @@ export default {
     methods:{
         saveBio(){
             axios.get(`${baseApiUrl}/users/${this.user.id}`).then(res => {
-                let user = res.data;
-                user.bio = document.getElementById("bio").value
+                let user = res.data
+                user.bio = this.textBio
                 user.confirmPassword = user.password
-                user.update = true
+                user.update = true        
                 axios.put(`${baseApiUrl}/users/${this.user.id}`, user).then(res => {
-                    this.$toasted.global.defaultSuccess(res);
+                    axios.get(`${baseApiUrl}/users/${this.user.id}`).then(res => this.bio = res.data.bio);
                 });
             });
+        },
+        attBio(){
+            this.textBio = event.target.value
         }
     }
 }
@@ -125,7 +135,8 @@ export default {
     cursor: pointer;
 }
 .profile-info{
-    background-size: 900px 214px;
+    background-size: 800px 214px;
+    background-image: url("https://optclean.com.br/wp-content/uploads/2017/03/filme-capa-para-twitter-bruce-lee.jpg");
     display: flex;
     align-items: flex-end;
     color: #dcdcdc;
@@ -178,7 +189,6 @@ export default {
     border-bottom: solid 5px #479457;
     font-size: 1.8rem;
     overflow: visible;
-    cursor: pointer;
 }
 .bio h1{
     font-size: 1.8rem;

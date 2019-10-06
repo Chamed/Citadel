@@ -4,6 +4,7 @@
             <Gravatar :email="host.email" alt="User"/>
             <h3>{{host.name}}</h3>
             <hr>
+        <span style="font-size: 2rem; opacity: 0.6; cursor:pointer"><i class="fa fa-camera"></i></span>
         </div>   
          <div style="display:flex;">
             <div class="friendship" style="margin-right: 20px">
@@ -14,11 +15,11 @@
             <div class="bio">
                  <PageTitle icon="fa fa-id-badge" main="Bio"
                     sub="Um pouco sobre mim..."/>
-                    <p>
+                    <p style="font-size: 1.4rem; text-overflow: ellipsis; overflow: hidden;">
                     {{host.bio}}
                     </p>
             </div>
-             <div @click="onModalOpen" v-b-modal.grade class="rating">
+             <div @click="onModalOpen" v-b-modal.grade class="rating" style="cursor: pointer;">
                 <PageTitle icon="fa fa-star" main="Avaliação"
                 sub=""/>
                  <p>

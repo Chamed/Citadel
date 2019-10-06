@@ -133,11 +133,12 @@ export default {
     .grey{
         color:#666;
     }
-    .btn-success{
+    .btn-success, .btn-primary {
         background-color: #479457;
         border-color: #479457;
     }
-    .btn-success:hover {
+    .btn-success:hover,.btn-primary:hover {
+ 
         color: #fff;
         background-color: #376547;
         border-color: #376547;

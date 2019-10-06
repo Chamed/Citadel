@@ -3,7 +3,7 @@ module.exports = app => {
 
     const save = (req, res) => {
         const rate = { ...req.body }
-        if(req.query.id) rate.id = req.query.id
+        if(req.query.id ) rate.id = req.query.id
         if(rate.id) {
             app.db('rating')
             .update(rate)
@@ -40,7 +40,7 @@ module.exports = app => {
             app.db('rating')
                 .select()
                 .where({ownerId: user})
-                .then(posts => res.json({ data: posts}))
+                .then(rates => res.json({ data: rates}))
                 .catch(err => res.status(500).send(err))
         }    
         return { get, save, remove }    
