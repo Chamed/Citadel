@@ -4,7 +4,6 @@ const bcripty = require ('bcrypt-nodejs')
 
 module.exports = app => {
     const signin = async (req, res) => {
-        console.log('entrou')
         if (!req.body.email || !req.body.password){
             return res.status(400).send('Usuário ou senha invalidos')
         }
