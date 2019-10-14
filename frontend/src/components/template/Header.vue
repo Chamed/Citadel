@@ -3,8 +3,11 @@
         <a class="toggle" @click="toggleMenu" v-if="!hideToggle">
             <i class="fa fa-lg" :class="icon"></i>
         </a>
-        <h1 class="title">
+        <h1 v-if="!hideUserDropdown" class="title">
             <router-link to="/"><img id="logo" src="@/assets/Citadel.png" alt="logo citadel"></router-link>
+        </h1>
+        <h1 v-if="hideUserDropdown" class="title">
+           <img id="logo" src="@/assets/Citadel.png" alt="logo citadel">
         </h1>
         <UserDropdown v-if="!hideUserDropdown"/>
     </header>
