@@ -40,7 +40,10 @@
         <hr>
         <b-table hover striped :items="posts" :fields="fields">
             <template slot="actions" slot-scope="data">
-                <b-button variant="warning" @click="loadpost(data.item)" class="mr-2">
+                <b-button v-if="data.item.userId === user.id" variant="warning" @click="loadpost(data.item)" class="mr-2">
+                    <i class="fa fa-pencil"></i>
+                </b-button>
+                <b-button v-if="data.item.userId != user.id" disabled variant="warning" @click="loadpost(data.item)" class="mr-2">
                     <i class="fa fa-pencil"></i>
                 </b-button>
                 <b-button variant="danger" @click="loadpost(data.item, 'remove')">
@@ -115,6 +118,7 @@ export default {
                 .catch(showError)
         },
         loadpost(post, mode = 'save') {
+            console.log(post)
             this.mode = mode
             axios.get(`${baseApiUrl}/posts/${post.id}`)
                 .then(res => this.post = res.data)
